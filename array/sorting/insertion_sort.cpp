@@ -17,7 +17,7 @@ void insertion_sort(int array[], int len) {
 
 // Function to print the array
 void print_array(int array[], int len) {
-	for(int i = 0 ; i < len - 1 ; i++)
+	for(int i = 0 ; i < len ; i++)
 		cout << array[i] << "\t";
 	cout << endl;
 
