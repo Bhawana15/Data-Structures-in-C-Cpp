@@ -1,3 +1,4 @@
+// SELECTION SORT
 #include <iostream>
 using namespace std;
 
@@ -9,7 +10,7 @@ void swap(int *a, int *b) {
     return;  
 }
 
-// Function for insertion sort
+// Function for selection sort
 void selection_sort(int array[], int len) {   
     int min_index, i, j; // We cant use minimum number here, min_index should be used
 
