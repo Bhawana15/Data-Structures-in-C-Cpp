@@ -1,4 +1,4 @@
-// SHELL SORT
+// SHELL SORT - Should be used if there are smaller elements towards the end of the array
 #include <iostream>
 using namespace std;
 
@@ -44,7 +44,7 @@ int main()
 	int array[] = { 6, 37, 9, 3, 75, 17 };
 	int len = sizeof(array)/sizeof(array[0]);
 
-    cout << "###### SHELL SORT ######\n";
+    cout << "###### SHELL SORT - Should be used if there are smaller elements towards the end of the array ######\n";
     cout << "Array is :\n";
     print_array(array, len);
 
