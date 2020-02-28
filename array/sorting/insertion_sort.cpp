@@ -8,11 +8,10 @@ void insertion_sort(int array[], int len) {
 
     for(i = 1 ; i < len ; i++) {
         temp = array[i];
-        for(j = i - 1 ; j >= 0 && temp < array[j] ; j--) 
+        for(j = i - 1 ; j >= 0 && temp < array[j] ; j--)
                 array[j+1] = array[j];    
         array[j+1] = temp;
     }
-
     return;
 }
 
