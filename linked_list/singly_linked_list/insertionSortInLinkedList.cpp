@@ -10,7 +10,7 @@ typedef struct NODE {
 
 void print_LL (node* head) {
 	node* temp = head;
-	int i = 0;
+	int i = 1;
 	while (temp != NULL) {
 		cout << "Node-" << i << " :  " << temp->data << endl;
         temp = temp->next;
