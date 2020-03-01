@@ -2,65 +2,60 @@
 
 #include <iostream>
 using namespace std;
-#define SIZE 20
+#define SIZE 10
 
-class Queue {
-	private :
-	int data[SIZE];
-	int length;
-	public :
-	Queue () : data{ 1, 2, 3, 4, 5, 6, 7, 8 } {
-		length = 8;
-	}
+int rear = -1;
+int front = -1;
+int queue[SIZE];
 
-	void printQueue();
-	void insertNode(int element);
-	void deleteNode();
-};
-
-void Queue::printQueue () {
-		for (int i = 0 ; i < length ; i++)
-			cout << data[i] << "  ";
-		cout << endl;
-		return;
-}
-
-void Queue::insertNode (int element) {
-	data[length] = element;
-	length++;
+void printQ () {
+	for (int i = front ; i <= rear ; i++) 
+		cout << queue[i] << "  ";
+	cout<< endl << endl;;
 	return;
 }
 
-void Queue::deleteNode () {
-	for (int i = 0, j = 1 ; j < length ; i++, j++) {
-		data[i] = data[j];
+void insertQ (int data) {
+	// When queue is filled
+	if (front == 0 && rear == SIZE)
+		cout << "QUEUE OVERFLOW\n";
+
+	// When a circular queue is filled
+	if (front == rear + 1)
+	    cout << "QUEUE OVERFLOW\n";		
+
+	// When queue is not filled
+	else {
+		if (front == -1)
+			front = 0;
+		rear++;
+		queue[rear] = data;
 	}
-	data[length] = '\0';
-	length--;
 	return;
 }
 
-int main()
-{
-	cout << "####  QUEUE REPRESENTATION USING AN ARRAY - CREATION, INSERTION AND DELETION  ####\n";
-	Queue q;
-	int element;
+void deleteQ () {
+	if (front == -1 || front > rear)
+		cout << "QUEUE UNDERFLOW\n";
+	front++;
+	return;
+}
 
-	// REPRESENTATION 
-	cout << "The Queue is :  ";
-	q.printQueue ();
+int main () {
+	cout <<"####  QUEUE REPRESENTATION USING AN ARRAY - CREATION, INSERTION AND DELETION  ####\n";
+	insertQ (6);
+	insertQ (7);
+	insertQ (8);
+	insertQ (9);
+	cout << "At first the queue is :\n";
+	printQ ();
 
-    // INSERTION
-    cout << "Enter an element to insert it in the queue :  ";
-    cin >> element;
-    q.insertNode (element);
-    cout << "Array after Insertion :  ";
-    q.printQueue ();
+	cout << "Queue after insertion of element 5 :\n";
+	insertQ (5);
+	printQ ();
 
-    // DELETION
-	q.deleteNode();
-	cout << "Array after Deletion :  ";
-	q.printQueue();
-
+	cout << "Queue after deletion of one element :\n";
+	deleteQ ();
+	printQ ();
 	return 0;
 }
