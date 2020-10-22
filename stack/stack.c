@@ -1,84 +1,73 @@
-/*********** STACK - PUSH AND POP **************/
-
 #include <stdio.h>
-#define SIZE 20
+#include <ctype.h>
 
-typedef struct s{
+typedef struct stack
+{
+	char data[100];
 	int top;
-	int item[SIZE];
 }stack;
 
-void create(stack *S);
-void pop(stack *S);
-void push(stack *S, int data);
-void display(stack *S);
+int empty(stack *p)
+{
+	return (p->top == -1);
+}
 
-int main(){
-	stack S;
-	int data, choice;
+int top(stack *p)
+{
+	return (p->data[p->top]);
+}
+
+void push(stack *p , char x)
+{
+	p->data[++(p->top)] = x;
+}
+
+void pop(stack *p)
+{
+	if(!empty(p))
+		(p->top) = (p->top)-1 ; 
+}
+
+int main()
+{
+	stack s;
+	s.top = -1;
+
+	// Postfix Expression : 1 2 3 * + 4 -
 	
-	printf("!!!! PROGRAM TO ILLUSTRATE PUSH AND POP OPERATIONS ON STACK !!!!\n\n");
-	create(&S);
+	char postfix[] = { '1' , '2' , '3' , '*' , '+' , '4' , '-' };
+	int i , op1 , op2;
 
-	do{
-        	printf("#### MENU ####\n");
-	        printf("1. Push item into the stack\n");
-	        printf("2. Pop item from the stack\n");
-	        printf("3. Quit\n");
-	        printf("Enter your choice :\n");
-	        scanf("%d", &choice);
+	for(i=0 ; i<7 ; i++)
+	{
+		char ch = postfix[i];
 
-	        switch(choice){
-			case 1: 
-				printf("Enter number to be pushed :\n");
-				scanf("%d", &data);
-				push(&S, data);
-				printf("\nNumber of elments in the stack = %d\n", S.top);
-				display(&S);
-				break;
-			case 2:
-			        pop(&S);
-				if(S.top <= 0)
-					printf("Stack is empty now\n");
-				else{
-				        display(&S);
-				}
-				break;
-			case 3: printf("\n !!!!!!!!!!!! FINISH !!!!!!!!!!!!\n");		
+		if(isdigit(ch))
+			push(&s , ch-'0');
+		else
+		{
+			op2 = top(&s);
+			pop(&s);
+			op1 = top(&s);
+			pop(&s);
+
+			switch(ch)
+			{
+				case '+' : push(&s , op1 + op2);
+					   break;
+		               
+				case '-' : push(&s , op1 - op2);
+					   break;
+
+				case '*' : push(&s , op1 * op2);
+					   break;
+
+				case '/' : push(&s , op1 / op2);
+					   break;
+			}
 		}
-            }while(choice != 3);   		
+	}
 
+	printf("Evaluation %d \n",top(&s));
 	return 0;
-}
-
-void create(stack *S){
-	S->top = 0;
-}
-
-void push(stack *S, int data){
-	if(S->top >= SIZE)
-		printf("STACK IS FULL!!! DATA OVERFLOW !!!\n");
-	else{
-		(S->top)++;
-	        S->item[S->top] = data;	
-	}
-}
-
-void pop(stack *S){
-	int data;
-	if(S->top <= 0)
-		printf("STACK IS EMPTY !!!!! DATA UNDERFLOW!!!!\n");
-	else{
-		data = S->item[S->top];
-		(S->top)--;
-		printf("%d popped from the stack\n", data);
-	}
-}
-
-void display(stack *S){
-	int x;
-	printf("ELements of stack are :\t");
-	for(x = S->top ; x > 0; x--)
-		printf("%d\t", S->item[x]);
-	printf("\n\n");
 }
